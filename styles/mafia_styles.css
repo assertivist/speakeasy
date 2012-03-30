@@ -1,0 +1,79 @@
+
+/* glo bal styles */
+
+body { font-family: "Helvetica Neue",Helvetica,Arial,sans-serif; color:#333; font-size:13px; line-height:16px; padding:0; margin:0; background: #ffffff; background: -moz-radial-gradient(center, ellipse cover,  #ffffff 0%, #f6f6f6 47%, #c9c9c9 100%);background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#ffffff), color-stop(47%,#f6f6f6), color-stop(100%,#c9c9c9));background: -webkit-radial-gradient(center, ellipse cover,  #ffffff 0%,#f6f6f6 47%,#c9c9c9 100%);background: -o-radial-gradient(center, ellipse cover,  #ffffff 0%,#f6f6f6 47%,#c9c9c9 100%); background: -ms-radial-gradient(center, ellipse cover,  #ffffff 0%,#f6f6f6 47%,#c9c9c9 100%); background: radial-gradient(center, ellipse cover,  #ffffff 0%,#f6f6f6 47%,#c9c9c9 100%);filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#c9c9c9',GradientType=1 ); }
+
+input[type=text] { border-radius:6px; border:1px #222 solid; font-family:inherit; text-align:center;}
+
+.spinner { -webkit-animation: spin 2s linear infinite; background:url('../img/spinner.png'); display:inline-block; height:17px; width:17px; }
+@-webkit-keyframes spin { from {-webkit-transform: rotate(0deg);} to {-webkit-transform: rotate(360deg);} }
+
+.roundedbg, .btn { border-radius:3px; -moz-border-radius:3px; -webkit-border-radus:3px; text-shadow:0 -1px 0 rgba(0, 0, 0, 0.25); padding-left:3px; padding-right:3px;}
+.btn { border-width:0px; height:32px; padding-left:8px; padding-right:8px; padding-top:0px;}
+
+/* colors, gradients */
+
+.blackgradient {background-image:-moz-linear-gradient(top, #333333, #222222);background-image:-ms-linear-gradient(top, #333333, #222222);background-image:-webkit-gradient(linear, 0 0, 0 100%, from(#333333), to(#222222));background-image:-webkit-linear-gradient(top, #333333, #222222);background-image:-o-linear-gradient(top, #333333, #222222);background-image:linear-gradient(top, #333333, #222222);background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#333333', endColorstr='#222222', GradientType=0); } 
+.green { background: #468847; }
+.red { background-color: #B94A48 !important;}
+.yellow { background:#F89406; }
+.black { background:#333; }
+.purple { background:purple; }
+
+/* login styles */
+
+div.login_overlay { position:fixed; top:0px; left:0px; width:100%; height:100%; background:rgba(1,1,1,.8); z-index:100;}
+div.login_overlay div.login_box { border-radius:10px; background-color:#eee; margin:200px auto; width: 270px;padding:20px; height:auto; }
+div.login_overlay div.login_box .spinner { margin-top:10px; }
+div.login_box div.login_pane input { width:260px; height:40px; margin-top:10px; border:3px solid #ddd; -webkit-select:none; outline:none; font-size:23px; color:#555; text-align:left; padding-left:7px;}
+div.login_box div.login_title{ font-family:"Wire One"; font-size:80px; text-transform:uppercase; text-shadow:3px 3px 4px rgba(0, 0, 0, 0.35); padding-top:20px; height:50px; text-align:center; }
+div.login_box div.login_pane{ text-align:center;display:none; }
+div.login_box div.login_pane#loading { display:block; }
+div.login_box div.login_pane#fatal span.whoops { font-family:Arial,sans; font-size:90px; display:block; margin-top:26px; margin-bottom:21px;}
+div.login_box div.login_pane#fatal span.fatalmessage { display:block; overflow-y:scroll; }
+
+
+/* container */
+
+div.container { }
+
+/* status bar */
+
+div.statusbar { width:100%; height:40px; margin:0; padding:0; padding-left:20px; padding-right:20px; color:#eee; text-shadow:1px -1px 1px rgba(0, 0, 0, 0.35);}
+div.statusbar span { float:left; height:100%;}
+div.statusbar span.title { font-family:"Wire One"; text-shadow:0 -1px 0 rgba(0, 0, 0, 0.25); font-size:35px; text-transform:uppercase; display:block; position:relative; top:10px; }
+div.statusbar span.scoreboard { background:#222; margin-left:20px; display:block; }
+div.statusbar span.scoreboard span { display:block; float:left; padding-top:10px;padding-left:10px; padding-right:10px;}
+div.statusbar span.scoreboard span span {float: right; height:auto; padding:0px;padding-left:2px; padding-right:3px;} 
+div.statusbar span.status { float:left; margin-left:10px; display:block; width:500px; padding-top:10px; height:auto;}
+div.statusbar span.status span { float:left; clear:none; }
+div.statusbar span.userinfo { float:right; padding-top:10px; margin-right:50px;}
+div.statusbar span.userinfo span#user { margin-left:5px; }
+
+
+/* main area */
+
+/* user list */
+
+div.main div.userlist { width:195px; margin-left:20px; float:left; height:auto; background:url('../img/wood_panel.png') no-repeat #1e0b07; min-height:300px; border-radius:6px;padding-left:20px; padding-top:20px; margin-top:30px; display:block; margin-top:10px;}
+div.main div.userlist ul { list-style-type:none;margin:0; padding:0; display:none; }
+div.main div.userlist ul li { color:#eee; margin-top:8px; }
+div.main div.userlist ul li.title { color:#999; text-transform:uppercase; background: margin-top:8px; border-bottom:1px solid #ddd; margin-bottom:12px;}
+
+/* chat */
+
+div.chat { width:auto; height:100%;}
+div.chat dl#chat_dl { display:block; float;left; min-width:300px; max-width:1000px; float:left;}
+div.chat dl#chat_dl dt { float: left; clear:left; width:120px; text-align:right; height:18px;}
+div.chat dl#chat_dl dt span { }
+div.chat dl#chat_dl dt.server span{ color:#333;padding-top:4px; }
+div.chat dl#chat_dl dd { margin-left:130px; display:block; height:18px;}
+div.chat dl#chat_dl dd.server { color:#333; }
+
+/* toolbar */
+
+div.toolbar { width:100%; position:fixed; bottom:0px; left:0px; height:40px; z-index:3; color:#eee; padding-left:20px;}
+div.toolbar #game_day {text-shadow:0 -1px 0 rgba(0, 0, 0, 0.25); float:left; font-family:"Wire One"; font-size:30px; text-transform:uppercase; padding-top:10px;margin-right:20px;}
+div.toolbar #in_chat { width: 65%; text-align:left; height:25px; margin-top:5px; padding-left:10px; font-size:13px;}
+div.toolbar #btn_vote{ height:25px; background-color:#5bb75b;background-image:-moz-linear-gradient(top, #62c462, #51a351);background-image:-ms-linear-gradient(top, #62c462, #51a351);background-image:-webkit-gradient(linear, 0 0, 0 100%, from(#62c462), to(#51a351));background-image:-webkit-linear-gradient(top, #62c462, #51a351);background-image:-o-linear-gradient(top, #62c462, #51a351);background-image:linear-gradient(top, #62c462, #51a351);background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#62c462', endColorstr='#51a351', GradientType=0);border-color:#51a351 #51a351 #387038;border-color:rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);filter:progid:dximagetransform.microsoft.gradient(enabled=false);}.btn-success:hover,.btn-success:active,.btn-success.active,.btn-success.disabled,.btn-success[disabled]{background-color:#51a351;}
+div.toolbar #round_number { float:right; margin-right:50px; margin-top:12px; } 
