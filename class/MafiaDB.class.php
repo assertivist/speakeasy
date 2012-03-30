@@ -7,9 +7,9 @@ class MafiaDB{
 	private $saltchars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 	
 	public function MafiaDB(){
-		$this->link = mysql_connect(':/Applications/MAMP/tmp/mysql/mysql.sock', 'root', 'root') or die('Could not connect to mysql: ' . mysql_error());
+		$this->link = mysql_connect('localhost', 'mafia', '!M4F14_H4X!') or die('Could not connect to mysql: ' . mysql_error());
 		$this->db_log("Connected to Database");
-		mysql_select_db('wiseguy') or die("Couldn't select database.");
+		mysql_select_db('mafia') or die("Couldn't select database.");
 	}
 
 
@@ -17,9 +17,9 @@ class MafiaDB{
 /*
 	database schema
 	
-	CREATE DATABASE wiseguy;
+	CREATE DATABASE mafia;
 	
-	SELECT wiseguy;
+	SELECT mafia;
 	
 	SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 	
@@ -47,7 +47,7 @@ class MafiaDB{
 		`timestamp` datetime NOT NULL,
 		`winners` varchar(1000) NOT NULL,
 		PRIMARY KEY(`id`)
-	) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCRMENT=1 ;
+	) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 */
 
 	public function checkUserName($client, $name){
