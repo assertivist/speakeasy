@@ -22,7 +22,7 @@ if (!Array.prototype.map)
 ;(function(exports) {
 	'use strict';
 	var debug_mode = true;
-	var host = "ws://localhost:31157/wiseguy.php";
+	var host = "ws://mafia.ravageduniverse.com:32402/wiseguy.php";
 	var username = "";
 	var socket;
 	var loggedin = false;
