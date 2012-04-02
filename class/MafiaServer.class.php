@@ -105,7 +105,8 @@ class MafiaServer {
 			$upgrade = "HTTP/1.1 101 Switching Protocols\r\n".
 					   "Upgrade: websocket\r\n".
 					   "Connection: Upgrade\r\n".
-					   "Sec-WebSocket-Accept: $acceptKey".
+					   "Sec-WebSocket-Accept: $acceptKey\r\n".
+					   "Sec-WebSocket-Origin: http://mafia.ravageduniverse.com\r\n".
 					   "\r\n\r\n";
 			
 			$this->console("Sending this response to the client #{$client->getId()}:\r\n".$upgrade);
