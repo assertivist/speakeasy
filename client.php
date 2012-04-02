@@ -7,8 +7,8 @@ error_reporting(E_ALL);
 		<title>Mafia Hideout</title>
 		<link rel="stylesheet" href="styles/mafia_styles.css" />
 		<link href="http://fonts.googleapis.com/css?family=Wire+One" rel="stylesheet" type="text/css">
-		<script type="text/javascript" src="swfobject.js"></script>
-		<script type="text/javascript" src="web_socket.js"></script>
+		<script type="text/javascript" src="js/swfobject.js"></script>
+		<script type="text/javascript" src="js/web_socket.js"></script>
 		<script type="text/javascript">
 			WEB_SOCKET_SWF_LOCATION = "WebSocketMainInsecure.swf";
 		</script>
