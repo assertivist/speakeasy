@@ -86,14 +86,19 @@ class MafiaServer {
 				$origin = $match[1];
 			if(preg_match("/Sec-WebSocket-Key: (.*)\r\n/", $headers, $match))
 				$key = $match[1];
+			if(preg_match("/Sec-WebSocket-Key1: (.*)\r\n/", $headers, $match))
+				$key1 = $match[1];
+					
 			
 			$this->console("Client headers are:");
 			$this->console("\t- Root: ".$root);
 			$this->console("\t- Host: ".$host);
 			$this->console("\t- Origin: ".$origin);
 			$this->console("\t- Sec-WebSocket-Key: ".$key);
+			$this->console("\t- Sec-WebSocket-Key1: ".$key1);
 			
 			$this->console("Generating Sec-WebSocket-Accept key...");
+			if(!isset($key)) $key = $key1;
 			$acceptKey = $key.'258EAFA5-E914-47DA-95CA-C5AB0DC85B11';
 			$acceptKey = base64_encode(sha1($acceptKey, true));
 
