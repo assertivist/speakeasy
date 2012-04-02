@@ -66,16 +66,16 @@ class MafiaServer {
 	private function handshake($client, $headers) {
 		$this->console("Getting client WebSocket version...");
 		$this->console($headers);
-		if(preg_match("/Sec-WebSocket-Version: (.*)\r\n/", $headers, $match))
-			$version = $match[1];
-		else {
-			$this->console("The client doesn't support WebSocket");
-			$this->sendPacket($client, "fail", "browser");
-			return false;
-		}
+		//if(preg_match("/Sec-WebSocket-Version: (.*)\r\n/", $headers, $match))
+		//	$version = $match[1];
+		//else {
+		//	$this->console("The client doesn't support WebSocket");
+		//	$this->sendPacket($client, "fail", "browser");
+		//	return false;
+		//}
 		
 		$this->console("Client WebSocket version is {$version}, (required: 13)");
-		if($version == 13) {
+		//if($version == 13) {
 			// Extract header variables
 			$this->console("Getting headers...");
 			if(preg_match("/GET (.*) HTTP/", $headers, $match))
@@ -108,7 +108,7 @@ class MafiaServer {
 			$client->setHandshake(true);
 			$this->console("Handshake is successfully done!");
 			return true;
-		}
+		//}
 		else {
 			$this->console("WebSocket version 13 required (the client supports version {$version})");
 			$this->sendPacket($client, "fail", "browser");
