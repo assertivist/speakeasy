@@ -65,6 +65,7 @@ class MafiaServer {
 	 */
 	private function handshake($client, $headers) {
 		$this->console("Getting client WebSocket version...");
+		$this->console($headers);
 		if(preg_match("/Sec-WebSocket-Version: (.*)\r\n/", $headers, $match))
 			$version = $match[1];
 		else {
