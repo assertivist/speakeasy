@@ -15,7 +15,7 @@ $debug   = true;
 $motd	 = "YOU HAVE ENTERED THE MAFIADOME";
 
 
-$master  = new MafiaServer("0.0.0.0", 31157, $debug);
+$master  = new MafiaServer("0", 31157, $debug);
 $master->db = new MafiaDB();
 $master->colors = $colors;
 $master->setMOTD($motd);
