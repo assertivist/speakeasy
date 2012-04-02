@@ -109,11 +109,11 @@ class MafiaServer {
 			$this->console("Handshake is successfully done!");
 			return true;
 		//}
-		else {
-			$this->console("WebSocket version 13 required (the client supports version {$version})");
-			$this->sendPacket($client, "fail", "browser");
-			return false;
-		}
+		//else {
+		//	$this->console("WebSocket version 13 required (the client supports version {$version})");
+		//	$this->sendPacket($client, "fail", "browser");
+		//	return false;
+		//}
 	}
 
 	/**
