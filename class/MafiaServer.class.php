@@ -74,7 +74,7 @@ class MafiaServer {
 		//	return false;
 		//}
 		
-		$this->console("Client WebSocket version is {$version}, (required: 13)");
+		//$this->console("Client WebSocket version is {$version}, (required: 13)");
 		//if($version == 13) {
 			// Extract header variables
 			$this->console("Getting headers...");
