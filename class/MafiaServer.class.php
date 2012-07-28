@@ -44,7 +44,8 @@ class MafiaServer {
 	}
 	function gameEvents(){
 		if(substr(strval(time()),-3,3) == "000"){	
-		
+			$this->console("game events would be executed");
+			$this->sendPacketAll("game","time");
 		}	
 	}
 
