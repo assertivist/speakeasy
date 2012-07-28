@@ -124,6 +124,7 @@ if (!Array.prototype.map)
 						show_login_pane("username");
 						break;
 					default:
+						debug("received scary message: "+msg.data);
 						break;
 				}
 			};
