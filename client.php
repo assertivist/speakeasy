@@ -11,6 +11,7 @@ error_reporting(E_ALL);
 		<script type="text/javascript" src="js/web_socket.js"></script>
 		<script type="text/javascript">
 			WEB_SOCKET_SWF_LOCATION = "WebSocketMain.swf";
+			WEB_SOCKET_DEBUG = true;
 		</script>
 		<script type="text/javascript" src="js/mafia.js"></script>
 		
