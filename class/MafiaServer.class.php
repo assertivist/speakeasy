@@ -12,7 +12,7 @@ class MafiaServer {
 	public $db; //MafiaDB
 	
 	private $hostname = "mafia.ravageduniverse.com";
-	
+	private $tick = 0;
 	
 	/**
 	 * Server constructor
@@ -43,10 +43,15 @@ class MafiaServer {
 		return $this;
 	}
 	function gameEvents(){
-		if(substr(strval(time()),-3,3) == "000"){	
-			$this->console("game events would be executed");
-			$this->sendPacketAll("game","time");
-		}	
+		if($this->tick > 4000){
+			$this->tick = 0;
+			$this->console("Game events would be run... sending test packets");
+			$this->sendPacketAll("test","test");
+			//game events
+		}
+		else{
+			$this->tick++;
+		}
 	}
 
 	/**
