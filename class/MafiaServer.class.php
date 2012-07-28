@@ -106,8 +106,8 @@ class MafiaServer {
 					   "Upgrade: websocket\r\n".
 					   "Connection: Upgrade\r\n".
 					   "Sec-WebSocket-Accept: $acceptKey\r\n".
-					   "Sec-WebSocket-Origin: http://mafia.ravageduniverse.com\r\n".
-					   "Sec-WebSocket-Location: ws://mafia.ravageduniverse.com:".$this->port."/wiseguy.php\r\n".
+					   "Sec-WebSocket-Origin: http://localhost\r\n".
+					   "Sec-WebSocket-Location: ws://localhost:".$this->port."/wiseguy.php\r\n".
 					   "\r\n\r\n";
 			
 			$this->console("Sending this response to the client #{$client->getId()}:\r\n".$upgrade);

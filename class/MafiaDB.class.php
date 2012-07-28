@@ -7,7 +7,10 @@ class MafiaDB{
 	private $saltchars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 	
 	public function MafiaDB(){
-		$this->link = mysql_connect('localhost', 'mafia', '!M4F14_H4X!') or die('Could not connect to mysql: ' . mysql_error());
+		//local
+		$this->link = mysql_connect(':/Applications/MAMP/tmp/mysql/mysql.sock', 'root', 'root') or die('Could not connect to mysql: '.mysql_error());
+		//ravaged universe
+		//$this->link = mysql_connect('localhost', 'mafia', '!M4F14_H4X!') or die('Could not connect to mysql: ' . mysql_error());
 		$this->db_log("Connected to Database");
 		mysql_select_db('mafia') or die("Couldn't select database.");
 	}
@@ -53,7 +56,7 @@ class MafiaDB{
 	public function checkUserName($client, $name){
 		$query = sprintf("SELECT * FROM user WHERE name = '%s' LIMIT 1",
 			mysql_real_escape_string($name));
-		$result = mysql_query($query, $this->link) or db_error("Error querying for user: ".mysql_error());
+		$result = mysql_query($query, $this->link) or $this->db_error("Error querying for user: ".mysql_error());
 		if($row = mysql_fetch_array($result)){
 			$this->db_log("Existing User: ".$name);
 			$client->setSalt($row["salt"]);

@@ -12,6 +12,8 @@
 #define MYSQL_PASS 		"root"
 #define MYSQL_CONNECTION_PORT		0
 #define MYSQL_SOCK		"/Applications/MAMP/tmp/mysql/mysql.sock"
+#define SECRET_SALT		"falsdjwoef0303f0w00v00sak00kkv0ckc0c00s_TACKS_IN_UR_SACK_____OUCH!!!!!"
+
 
 cJSON *root, *fmt;
 
@@ -27,13 +29,16 @@ char client_last_key[1024];
 void initSql();
 void mysqlError();
 void listRooms();
+void addRoom(char *name, int type);
 void loadClient();
+int authUser(char *user, char *pass);
 int endResponse();
 char *makeGarbage(int length);
 
 int cgiMain() {
 	srand(time(NULL));
 	cgiHeaderContentType("text/json");
+	fprintf(cgiOut, "\r\n");
 	root = cJSON_CreateObject();
 	initSql();
 	
@@ -44,7 +49,7 @@ int cgiMain() {
 	cgiFormResultType actionresult = cgiFormStringNoNewlines("action", client_action, 1024);
 	if(actionresult == cgiFormNotFound) {
 		//no action supplied
-		//heartbeat, look for updated actions if room sent
+		//heartbeat, look for updated events if room sent
 	}
 	else {
 		if(strcmp(client_action, "chat") == 0) {
@@ -72,25 +77,82 @@ void loadClient() {
 	strcat(client_ip, cgiRemoteAddr);
 	strcat(client_useragent, cgiUserAgent);
 	if(idresult == cgiFormNotFound) {
-		char query[50];
+		char query[8024];
 		sprintf(query, "insert into client (ip,useragent) values ('%s','%s')", cgiRemoteAddr, cgiUserAgent);
+		
 		mysql_query(conn, query);	
 		cJSON_AddTrueToObject(root, "needname");
-		listRooms();
 		char recid[50];
 		sprintf(recid, "%u", mysql_insert_id(conn));
 		cJSON_AddStringToObject(root, "your_new_id", recid);
 	}
 	else { //we have an id
 		char query[25];
-		sprintf(query, "select id,name,ip,useragent from clients where id = %d", client_id);
+		sprintf(query, "select id,name,ip,useragent from clients where id = %s", client_id);
 		mysql_query(conn, query);
 		MYSQL_RES *result;
 		result = mysql_store_result(conn);
 		//int num_fields = mysql_num_fields(result);
 		MYSQL_ROW clientrow = mysql_fetch_row(result);
+		
+		if(strcmp(clientrow[2], client_ip) == 0 || strcmp(clientrow[3], client_useragent) == 0) {
+			//ip/user agent changed, invalidate session
+			cJSON_AddFalseToObject(root, "your_new_id");
+			return;
+		}
+		else {
+			//client fingerprint valid
+			if(strcmp(clientrow[1], "") == 0) {
+				//no name
+			}
+			else{
+			
+			}
+		}
 	}
 }
+
+int userExists(char *user) {
+	//returns 0 for user exists
+	//returns 1 for new user
+	char query[200];
+	sprintf(query, "select id,name from users where name = %s", user);
+	mysql_query(conn, query);
+	MYSQL_RES *result;
+	result = mysql_store_result(conn);
+	MYSQL_ROW userrow = mysql_fetch_row(result);
+	if(result == NULL) {
+		mysqlError();
+		return -1;
+	}
+	if((long)mysql_affected_rows(conn) < 1) return 1;
+	else return 0;
+}
+
+int authUser(char *user, char *pass) {
+	//returns 0 for correct user/pass
+	//returns 1 for incorrect password
+	char query[200];
+	sprintf(query, "select id,name,hash from users where name = %s and hash = sha1(%s%s)", user, pass, SECRET_SALT);
+	mysql_query(conn, query);
+	MYSQL_RES *result;
+	result = mysql_store_result(conn);
+	MYSQL_ROW userrow = mysql_fetch_row(result);
+	if(result == NULL) {
+		mysqlError();
+		return -1;
+	}
+	if((long)mysql_affected_rows(conn) < 1) return 1;
+	else return 0;	
+}
+
+void addUser(char *user, char *pass) {
+	char query[200];
+	sprintf(query, "insert into users (name,hash) values ('%s',sha1('%s%s')", user, pass, SECRET_SALT);
+	mysql_query(conn, query);
+	return;
+}
+
 
 void initSql() {
 	conn = mysql_init(NULL);
@@ -133,8 +195,15 @@ void listRooms() {
 			cJSON_Delete(roomObj);
 		}
 		cJSON_AddItemToObject(root, "rooms", roomsObj);
-		mysql_free_result(result);
 	}
+	mysql_free_result(result);
+}
+
+void addRoom(char *name, int type) {
+	char query[50];
+	sprintf(query, "insert into rooms (name, type, num_clients) values (%s, %d, %d)", name, type, 0);
+	mysql_query(conn, query);
+	listRooms();
 }
 
 char *makeGarbage(int length) {

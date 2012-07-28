@@ -4,13 +4,13 @@ error_reporting(E_ALL);
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Mafia Hideout</title>
+		<title>The SPEAKEASY</title>
 		<link rel="stylesheet" href="styles/mafia_styles.css" />
 		<link href="http://fonts.googleapis.com/css?family=Wire+One" rel="stylesheet" type="text/css">
 		<script type="text/javascript" src="js/swfobject.js"></script>
 		<script type="text/javascript" src="js/web_socket.js"></script>
 		<script type="text/javascript">
-			WEB_SOCKET_SWF_LOCATION = "WebSocketMainInsecure.swf";
+			WEB_SOCKET_SWF_LOCATION = "WebSocketMain.swf";
 		</script>
 		<script type="text/javascript" src="js/mafia.js"></script>
 		
@@ -19,7 +19,7 @@ error_reporting(E_ALL);
 	<body>
 		<div class="login_overlay" id="modal">
 			<div class="login_box" id="modalbox">
-				<div class="login_title"><span class="first">MAFIA</span> <span class="second">HIDEOUT</span></div>
+				<div class="login_title"><span class="first">the</span> <span class="second">SPEAKEASY</span></div>
 				<div class="login_pane" id="connecting">
 					Connecting...<br/><span class="spinner"></span>
 				</div>
@@ -49,7 +49,7 @@ error_reporting(E_ALL);
 		<div class="container">
 			<div class="statusbar blackgradient">
 				<span class="title">
-					MAFIA HIDEOUT
+					THE SPEAKEASY
 				</span>
 				<span class="scoreboard">
 					<span>Global Stats:</span>

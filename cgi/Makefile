@@ -16,7 +16,7 @@ libcgic.a: cgic.o cgic.h
 	$(RANLIB) libcgic.a
 
 mafia.cgi: mafia.o libcgic.a 
-	gcc -Wall ${MYSQL} cJSON.c mafia.o -o mafia.cgi ${LIBS}
+	gcc -g -Wall ${MYSQL} cJSON.c mafia.o -o mafia.cgi ${LIBS}
 
 #cgictest.cgi: cgictest.o libcgic.a
 #	gcc cgictest.o -o cgictest.cgi ${LIBS}
