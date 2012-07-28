@@ -23,9 +23,9 @@ if (!Array.prototype.map)
 	'use strict';
 	var debug_mode = true;
 	//local
-	var host = "ws://localhost:32402/wiseguy.php";
+	//var host = "ws://localhost:32402/wiseguy.php";
 	//ravaged universe
-	//var host = "ws://mafia.ravageduniverse.com:32402/wiseguy.php";
+	var host = "ws://mafia.ravageduniverse.com:32402/wiseguy.php";
 	var username = "";
 	var socket;
 	var loggedin = false;
