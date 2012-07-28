@@ -8,9 +8,9 @@ class MafiaDB{
 	
 	public function MafiaDB(){
 		//local
-		$this->link = mysql_connect(':/Applications/MAMP/tmp/mysql/mysql.sock', 'root', 'root') or die('Could not connect to mysql: '.mysql_error());
+		//$this->link = mysql_connect(':/Applications/MAMP/tmp/mysql/mysql.sock', 'root', 'root') or die('Could not connect to mysql: '.mysql_error());
 		//ravaged universe
-		//$this->link = mysql_connect('localhost', 'mafia', '!M4F14_H4X!') or die('Could not connect to mysql: ' . mysql_error());
+		$this->link = mysql_connect('localhost', 'mafia', '!M4F14_H4X!') or die('Could not connect to mysql: ' . mysql_error());
 		$this->db_log("Connected to Database");
 		mysql_select_db('mafia') or die("Couldn't select database.");
 	}
