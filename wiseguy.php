@@ -1,4 +1,4 @@
-#!/php -q
+#!/usr/local/bin/php -q
 <?php  /*  >php -q wiseguy.php  */
 date_default_timezone_set('America/Chicago');
 include 'colors.php';
