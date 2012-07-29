@@ -116,7 +116,7 @@ class MafiaServer {
 					   "Sec-WebSocket-Accept: $acceptKey\r\n".
 					   "Sec-WebSocket-Origin: http://".$this->hostname."\r\n".
 					   "Sec-WebSocket-Location: ws://".$this->hostname.":".$this->port."\r\n".
-					   "\r\n\r\n";
+					   "\r\n";
 			
 			$this->console("Sending this response to the client #{$client->getId()}:\r\n".$upgrade);
 			socket_write($client->getSocket(), $upgrade);
