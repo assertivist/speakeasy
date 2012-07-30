@@ -33,6 +33,7 @@ if (!Array.prototype.map)
 	//function MCI() { //The Mafia Client Instance
 		if(!WebSocket){ 
 			fail("You need a browser with WebSockets<br/>Firefox 10 or Chrome 16");	
+			//what
 		}
 		//return this;
 		
