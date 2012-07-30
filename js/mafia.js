@@ -19,8 +19,6 @@ if (!Array.prototype.map)
   };
 }
 
-;(function(exports) {
-	'use strict';
 	var debug_mode = true;
 	//local
 	//var host = "ws://localhost:32402/wiseguy.php";
@@ -293,6 +291,3 @@ if (!Array.prototype.map)
 		o.add = function(elearray){ elearray.forEach(function(ele){o.appendChild(ele);}); return o;};
 		return o;
 	}
-	
-	exports.Mafia = MCI;
-}(this));

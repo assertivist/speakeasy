@@ -95,7 +95,7 @@ error_reporting(E_ALL);
 		</div>
 		<script type="text/javascript" src="js/mafia.js"></script>
 		<script type="text/javascript">
-			TheMafia = new Mafia();
+			TheMafia = new MCI();
 		</script>
 	</body>
 </html>
