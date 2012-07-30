@@ -32,7 +32,7 @@ if (!Array.prototype.map)
 	
 	//function MCI() { //The Mafia Client Instance
 		if(!WebSocket){ 
-			MCI.prototype.fail("You need a browser with WebSockets<br/>Firefox 10 or Chrome 16");	
+			fail("You need a browser with WebSockets<br/>Firefox 10 or Chrome 16");	
 			return;
 		}
 		//return this;
@@ -129,7 +129,7 @@ if (!Array.prototype.map)
 			socket.onclose = function(msg){
 				debug("socket closed: "+this.readyState);
 				if(!quitting && loggedin){
-					MCI.prototype.fail("Disconnected from the server. "+this.readyState); 
+					fail("Disconnected from the server. "+this.readyState); 
 				}
 				else if(!loggedin){
 					show_login_pane("no_server");
@@ -265,7 +265,7 @@ if (!Array.prototype.map)
 	function updateuserinlist(user,colorcls,votes){
 	
 	}
-	MCI.prototype.fail = function(error){
+	var fail = function(error){
 		ele("fatalmessage").innerHTML = error;
 		ele("modalbox").addClass("red");
 		show_login_pane("fatal");
