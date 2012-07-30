@@ -30,7 +30,7 @@ if (!Array.prototype.map)
 	var quitting = false;
 	var loading = false;
 	
-	function MCI() { //The Mafia Client Instance
+	//function MCI() { //The Mafia Client Instance
 		if(!WebSocket){ 
 			MCI.prototype.fail("You need a browser with WebSockets<br/>Firefox 10 or Chrome 16");	
 			return;

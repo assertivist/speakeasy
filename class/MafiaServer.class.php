@@ -45,15 +45,13 @@ class MafiaServer {
 	}
 	
 	private function gameEvents(){
-		if($this->tick > 40){
+		if($this->tick > 10){
 			$this->tick = 0;
-			$this->console("Game events would be run... sending test packets");
-			$this->sendPacketAll("test","test");
+			$this->console("Game events would be run");
 			//game events
 		}
 		else{
 			$this->tick = $this->tick + 1;
-			$this->console("tick: ".$this->tick);
 		}
 	}
 
