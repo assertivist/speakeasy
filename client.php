@@ -4,7 +4,7 @@ error_reporting(E_ALL);
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>The SPEAKEASY</title>
+		<title>SPEAKEASY</title>
 		<link rel="stylesheet" href="styles/mafia_styles.css" />
 		<link href="http://fonts.googleapis.com/css?family=Wire+One" rel="stylesheet" type="text/css">
 		<script type="text/javascript" src="js/swfobject.js"></script>
@@ -13,14 +13,14 @@ error_reporting(E_ALL);
 			WEB_SOCKET_SWF_LOCATION = "WebSocketMain.swf";
 			WEB_SOCKET_DEBUG = true;
 		</script>
-		<script type="text/javascript" src="js/mafia.js"></script>
+		
 		
 		<style type="text/css" id="generated_colors"></style>
 	</head>
 	<body>
 		<div class="login_overlay" id="modal">
 			<div class="login_box" id="modalbox">
-				<div class="login_title"><span class="first">the</span> <span class="second">SPEAKEASY</span></div>
+				<div class="login_title"><span class="second">SPEAKEASY</span></div>
 				<div class="login_pane" id="connecting">
 					Connecting...<br/><span class="spinner"></span>
 				</div>
@@ -43,14 +43,14 @@ error_reporting(E_ALL);
 					<span class="whoops">&#9760;</span><br/>Fatal error<br/><span id="fatalmessage"></span>
 				</div>
 				<div class="login_pane" id="no_server">
-					The Mafia Hideout server is not started.<br/>Please <a href="javascript:location.reload(true);" style="color:inherit;">refresh</a> to check again.
+					The server for this game room is not started.<br/>Please <a href="javascript:location.reload(true);" style="color:inherit;">refresh</a> to check again, or .
 				</div>
 			</div>
 		</div>
 		<div class="container">
 			<div class="statusbar blackgradient">
 				<span class="title">
-					THE SPEAKEASY
+					SPEAKEASY
 				</span>
 				<span class="scoreboard">
 					<span>Global Stats:</span>
@@ -93,6 +93,7 @@ error_reporting(E_ALL);
 				
 			</div>
 		</div>
+		<script type="text/javascript" src="js/mafia.js"></script>
 		<script type="text/javascript">
 			TheMafia = new Mafia();
 		</script>

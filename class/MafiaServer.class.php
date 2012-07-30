@@ -12,7 +12,7 @@ class MafiaServer {
 	public $db; //MafiaDB
 	
 	private $hostname = "mafia.ravageduniverse.com";
-	private $tick = 0;
+	private $tick;
 	
 	/**
 	 * Server constructor
@@ -24,6 +24,7 @@ class MafiaServer {
 		$this->address = $address;
 		$this->port = $port;
 		$this->verboseMode = $verboseMode;
+		$this->tick = 0;
 
 		// socket creation
 		$socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
@@ -52,6 +53,7 @@ class MafiaServer {
 		}
 		else{
 			$this->tick = $this->tick + 1;
+			$this->console("tick: ".$this->tick);
 		}
 	}
 
@@ -482,7 +484,7 @@ class MafiaServer {
 	}
 	
 	/**
-	 * Print a text to the terminal
+	 * Print text to the terminal
 	 * @param $text the text to display
 	 * @param $exit if true, the process will exit 
 	 */
@@ -501,9 +503,14 @@ class MafiaServer {
 	
 	
 }
-class Game{
+class MafiaGame{
 	public $players;
 	public $day;
 	public $votes; 
+}
+class ResistanceGame{
+	public $players;
+	public $round;
+	public $votes;
 }
 ?>
