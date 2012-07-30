@@ -25,7 +25,7 @@ if (!Array.prototype.map)
 	//local
 	//var host = "ws://localhost:32402/wiseguy.php";
 	//ravaged universe
-	var host = "ws://mafia.ravageduniverse.com:32402/wiseguy.php";
+	var host = "ws://mafia.ravageduniverse.com:32402";
 	var username = "";
 	var socket;
 	var loggedin = false;

@@ -53,7 +53,7 @@ class MafiaServer {
 		}
 		else{
 			$this->tick = $this->tick + 1;
-			$this->console("tick: ".$this->tick);
+			$this->console("tick: ".$this->tick);x
 		}
 	}
 
@@ -380,6 +380,7 @@ class MafiaServer {
 	}
 	
 	private function sendPacketAll($action,$message = ""){
+		if(!isset($this->clients) || count($this->clients) < 1) return;
 		foreach($this->clients as $c){
 			$this->send($c, $action."~".$message);
 		}
