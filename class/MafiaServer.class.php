@@ -42,15 +42,16 @@ class MafiaServer {
 		$this->console("Server started on {$this->address}:{$this->port}");
 		return $this;
 	}
-	function gameEvents(){
-		if($this->tick > 4000){
+	
+	private function gameEvents(){
+		if($this->tick > 40){
 			$this->tick = 0;
 			$this->console("Game events would be run... sending test packets");
 			$this->sendPacketAll("test","test");
 			//game events
 		}
 		else{
-			$this->tick++;
+			$this->tick = $this->tick + 1;
 		}
 	}
 
