@@ -173,8 +173,6 @@ if (!Array.prototype.map)
 			debug(ex);
 			return null;
 		}
-		return this;
-	}
 	function clearlogin(){
 		ele("in_username").value = "";
 		ele("new_password1").value = "";

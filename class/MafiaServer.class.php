@@ -45,7 +45,7 @@ class MafiaServer {
 	}
 	
 	private function gameEvents(){
-		if($this->tick > 10){
+		if($this->tick > 5){
 			$this->tick = 0;
 			$this->console("Game events would be run");
 			//game events
