@@ -53,7 +53,7 @@ class MafiaServer {
 		}
 		else{
 			$this->tick = $this->tick + 1;
-			$this->console("tick: ".$this->tick);x
+			$this->console("tick: ".$this->tick);
 		}
 	}
 
