@@ -175,6 +175,7 @@ class MafiaServer {
 		while(true) {
 			$changed_sockets = $this->sockets;
 			@socket_select($changed_sockets, $write = NULL, $except = NULL, 1);
+			$this->gameEvents();
 			if(!isset($changed_sockets)) continue;
 			foreach($changed_sockets as $socket) {
 				if($socket == $this->master) {
@@ -208,7 +209,6 @@ class MafiaServer {
 					}
 				}
 			}
-			$this->gameEvents();
 		}
 	}
 
@@ -422,7 +422,7 @@ class MafiaServer {
 		try{
 			$this->console("Send '".$text."' to client #{$client->getId()}");
 			$text = $this->encode($text);
-			$this->console("encoded: ".$text);
+			//$this->console("encoded: ".$text);
 			if(socket_write($client->getSocket(), $text, strlen($text)) === false) {
 				$this->console("Unable to write to client #{$client->getId()}'s socket");
 				$this->disconnect($client);
