@@ -269,7 +269,7 @@ if (!Array.prototype.map)
 		}
 		catch(ex){
 			debug(ex);
-			return null;
+			//return null;
 		}
 	function clearlogin(){
 		ele("in_username").value = "";
