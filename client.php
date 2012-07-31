@@ -4,6 +4,7 @@ error_reporting(E_ALL);
 <!DOCTYPE html>
 <html>
 	<head>
+	<meta charset="UTF-8">
 		<title>SPEAKEASY</title>
 		<link rel="stylesheet" href="styles/mafia_styles.css" />
 		<link href="http://fonts.googleapis.com/css?family=Wire+One" rel="stylesheet" type="text/css">
