@@ -11,13 +11,10 @@ error_reporting(E_ALL);
 		<script type="text/javascript">
 			WEB_SOCKET_SWF_LOCATION = "WebSocketMain.swf";
 			WEB_SOCKET_DEBUG = true;
-			WEB_SOCKET_FORCE_FLASH = true;
+			//WEB_SOCKET_FORCE_FLASH = true; //give up camino
 		</script>
 		<script type="text/javascript" src="js/swfobject.js"></script>
 		<script type="text/javascript" src="js/web_socket.js"></script>
-		
-		
-		
 		<style type="text/css" id="generated_colors"></style>
 	</head>
 	<body>
@@ -46,7 +43,7 @@ error_reporting(E_ALL);
 					<span class="whoops">&#9760;</span><br/>Fatal error<br/><span id="fatalmessage"></span>
 				</div>
 				<div class="login_pane" id="no_server">
-					The server for this game room is not started.<br/>Please <a href="javascript:location.reload(true);" style="color:inherit;">refresh</a> to check again, or .
+					The server for this game room is not started.<br/>Please <a href="javascript:location.reload(true);" style="color:inherit;">refresh</a> to check again, or <a href="javascript:history.back();">go back</a>.
 				</div>
 			</div>
 		</div>
