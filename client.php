@@ -7,12 +7,13 @@ error_reporting(E_ALL);
 		<title>SPEAKEASY</title>
 		<link rel="stylesheet" href="styles/mafia_styles.css" />
 		<link href="http://fonts.googleapis.com/css?family=Wire+One" rel="stylesheet" type="text/css">
-		<script type="text/javascript" src="js/swfobject.js"></script>
-		<script type="text/javascript" src="js/web_socket.js"></script>
 		<script type="text/javascript">
 			WEB_SOCKET_SWF_LOCATION = "WebSocketMain.swf";
 			WEB_SOCKET_DEBUG = true;
 		</script>
+		<script type="text/javascript" src="js/swfobject.js"></script>
+		<script type="text/javascript" src="js/web_socket.js"></script>
+		
 		
 		
 		<style type="text/css" id="generated_colors"></style>
