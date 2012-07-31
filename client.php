@@ -10,6 +10,7 @@ error_reporting(E_ALL);
 		<script type="text/javascript">
 			WEB_SOCKET_SWF_LOCATION = "WebSocketMain.swf";
 			WEB_SOCKET_DEBUG = true;
+			WEB_SOCKET_FORCE_FLASH = true;
 		</script>
 		<script type="text/javascript" src="js/swfobject.js"></script>
 		<script type="text/javascript" src="js/web_socket.js"></script>
