@@ -1,24 +1,4 @@
-if (!Array.prototype.map)
-{
-  Array.prototype.map = function(fun /*, thisp*/)
-  {
-	'use strict';
-    var len = this.length;
-    if (typeof fun !== "function"){
-      throw new TypeError();
-	}
-    var res = new Array(len);
-    var thisp = arguments[1];
-    for (var i = 0; i < len; i++)
-    {
-		if (i in this){
-			res[i] = fun.call(thisp, this[i], i, this);
-		}
-    }
-    return res;
-  };
-}
-
+/* code considered (c) Anonymous (Orphan Public Domain) */
 	var debug_mode = true;
 	//local
 	//var host = "ws://localhost:32402/wiseguy.php";
@@ -51,13 +31,15 @@ if (!Array.prototype.map)
 				var data = pktarray[1];
 				switch(action){
 					case "exists":
-						debug("user exists: "+data);
+						debug("user exists");
 						show_login_pane("enter_password");
+						ele("in_password").focus();
 						break;
 					case "newuser":
 						debug("new user");
 						ele("prompted_new_user").innerHTML = data;
 						show_login_pane("new_password");
+						ele("new_password1").focus();
 						break;
 					case "colorcls":
 						debug("color class: "+data);
@@ -171,7 +153,7 @@ if (!Array.prototype.map)
 		}
 		catch(ex){
 			debug(ex);
-			return null;
+			//return null;
 		}
 	function clearlogin(){
 		ele("in_username").value = "";
@@ -254,14 +236,6 @@ if (!Array.prototype.map)
 		}
 	}
 	
-	var illegalchars = ["~","^:","<",">","\\"];
-	function sescape(message){
-		for(var i = 0; i < illegalchars.length; i++){
-			message.replace(illegalchars[i],"");
-		}
-		return message;
-	}
-	
 	function updateuserinlist(user,colorcls,votes){
 	
 	}
@@ -271,21 +245,4 @@ if (!Array.prototype.map)
 		show_login_pane("fatal");
 	};
 	
-	function debug(msg){
-		if(!debug_mode){
-			return;
-		}
-		console.log(msg);
-	}
-	function ele(id) { 
-		var o = document.getElementById(id);
-		if(!o) return o;
-		o.show = function(){ o.style.display = "block";};
-		o.hide = function(){ o.style.display = "none"; };
-		o.find = function(selector){ return Array.prototype.slice.call(o.getElementsByClassName(selector), 0); };
-		o.removeClass = function(cls){ o.className = (o.getAttribute("class").split(/\s+/).map(function(x){ if(x !== cls){ return x; } else{ return ""; } })).join(" "); };
-		o.addClass = function(cls){ o.className = o.className+" "+cls; };
-		o.hilite = function(){ o.style.backgroundColor = "#FF9C9C"; };
-		o.add = function(elearray){ elearray.forEach(function(ele){o.appendChild(ele);}); return o;};
-		return o;
-	}
+	
