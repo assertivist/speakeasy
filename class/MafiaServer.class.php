@@ -10,9 +10,12 @@ class MafiaServer {
 	private $motd;
 	public $colors;
 	public $db; //MafiaDB
+	private $currentgame;
 	
 	private $hostname = "mafia.ravageduniverse.com";
 	private $tick;
+	
+	private $client_calling_game;
 	
 	/**
 	 * Server constructor
@@ -276,7 +279,27 @@ class MafiaServer {
 			case "action":
   				$this->sendActionAll($client, $data, ($client->getUserStatus() == UserStatus::DEAD));
 				break;
+			case "callgame":
+				if(isset($client_calling_game){
+					$this->sendPacket($client, "server", sprintf("%s is already starting a game.");
+					break;
+				}
+				if(count($clients) > 4){
+					$this->sendPacket($client, "showconf");
+					$this->sendPacketAll("server", sprintf("%s is starting a game.", $client->getUsername()));
+					$this->$client_calling_game = $client;
+				}
+				else $this->sendPacket($client, "server", "Not enough players to start a game.");
+				break;
+			case "ready":
+				if($data == 1)
+				$client->vote = true;
+				else $client->vote false;
+				break;
   			case "vote":
+  				$vpck = explode($data, "^:");
+  				$votetype = $vpck[0];
+  				$vote = $vpck[1];
   				break;
   			case "echo":
   				$this->send($client, $data);

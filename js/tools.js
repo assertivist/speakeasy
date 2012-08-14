@@ -102,7 +102,7 @@ var getElementsByClassName = function (className, tag, elm){
 	return getElementsByClassName(className, tag, elm);
 };
 
-/* code below this point considered (c) Anonymous (Orphan Public Domain) */
+/* code below (c) dopetank software http://dopetank.net */
 function debug(msg){
 	if(!debug_mode){
 		return;
@@ -115,7 +115,7 @@ function ele(id) {
 	if(!o) return o;
 	o.show = function(){ o.style.display = "block";};
 	o.hide = function(){ o.style.display = "none"; };
-	o.find = function(selector){ return Array.prototype.slice.call(o.getElementsByClassName(selector), 0); };
+	o.find = function(selector){ if(o.getElementsByClassName) return Array.prototype.slice.call(o.getElementsByClassName(selector), 0); else return Array.prototype.slice.call(document.getElementsByClassName(selector), 0);};
 	o.removeClass = function(cls){ o.className = (o.getAttribute("class").split(/\s+/).map(function(x){ if(x !== cls){ return x; } else{ return ""; } })).join(" "); };
 	o.addClass = function(cls){ o.className = o.className+" "+cls; };
 	o.hilite = function(){ o.style.backgroundColor = "#FF9C9C"; };

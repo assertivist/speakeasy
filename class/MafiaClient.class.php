@@ -16,6 +16,8 @@ class MafiaClient {
 	
 	public $role;
 	
+	public $vote = NULL;
+	
 	function MafiaClient($id, $socket) {
 		$this->id = $id;
 		$this->socket = $socket;

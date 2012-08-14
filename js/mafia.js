@@ -1,4 +1,4 @@
-/* code considered (c) Anonymous (Orphan Public Domain) */
+/* code (c) dopetank software http://dopetank.net */
 	var debug_mode = true;
 	//local
 	//var host = "ws://localhost:32402/wiseguy.php";
