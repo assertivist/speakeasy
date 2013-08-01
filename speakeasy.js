@@ -2,6 +2,9 @@ var app = require('http').createServer(handler)
 	, io = require('socket.io').listen(app)
 	, fs = require('fs')
 	, url = require('url')
+	, express = require('express')
+
+app.use(express.static(__dirname + '/public'));
 
 app.listen(8080);
 
@@ -12,6 +15,7 @@ function handler (req, res) {
 	content = 'text/html'
 	switch (base[1]){
 		case "styles":
+			cont
 			out_f = out_f.concat('/styles/mafia_styles.css');
 			break;
 		case "script":
