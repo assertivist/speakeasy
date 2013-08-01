@@ -5,20 +5,16 @@ This is a project stemming from years of playing the parlor game "Mafia" (also s
 
 About
 -----
-Speakeasy is written in PHP (persistent server) and JavaScript (on the client). It uses WebSockets extensively and borrows websockets-js to implement a Flash fall-back for browsers that do not have support (lately becoming few and far between). Also included is a half-finished CGI implementation of the server written in C. 
+Speakeasy is written completely in Javascript using node.js on the server.
 
 ### To run
 
-The game uses MySQL for record-keeping and storing user information.
+node speakeasy.js
 
-You shouldn't attempt to run this yet. The code is still very messy. Your PHP must be compiled with socket support, and then you must run the persistent server on the host:
-
-
-	php -q wiseguy.php
+The game uses Redis for data storage.
  
-Browsing to `client.php` will then attempt to connect to the server and you will be asked for credentials etc.
+Browsing to http://host/ will then attempt to connect to the server and you will be asked for credentials etc.
 
-Contributing
+Other Games
 -----------
-
-If you must, you can fork...
+If you happen to stop by and think, "Oh, I love those parlor games such as Mafia or Thermonuclear War!", be sure to watch for speakeasy to go live out on the internet soon. Mafia and TNW are slated for inclusion but I am completely open to adding more games in the future. The game logic will be modularized so that they can all be plugged into the same system. 
