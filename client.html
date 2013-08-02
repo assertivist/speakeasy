@@ -3,10 +3,11 @@
 	<head>
 	<meta charset="UTF-8">
 		<title>SPEAKEASY</title>
-		<link rel="stylesheet" href="styles" />
+		<link rel="stylesheet" href="styles/mafia_styles.css" />
 		<link href="http://fonts.googleapis.com/css?family=Wire+One" rel="stylesheet" type="text/css">
-		<script type="text/javascript" src="tools"></script>
-		<script type="text/javascript" src="script"></script>
+		<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+		<script type="text/javascript" src="js/tools.js"></script>
+		<script type="text/javascript" src="js/mafia.js"></script>
 		<style type="text/css" id="generated_colors"></style>
 	</head>
 	<body>
@@ -68,7 +69,7 @@
 						<li class="title">Connected Players</li>
 					</ul>
 				</div>
-				<div class="chat">
+				<div class="chat" id="chat_div" style="overflow:scroll; height:500px; margin-bottom:25px;">
 					<dl id="chat_dl">
 						
 					</dl>

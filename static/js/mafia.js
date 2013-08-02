@@ -1,9 +1,6 @@
 /* code (c) dopetank software http://dopetank.net */
 	var debug_mode = true;
-	//local
-	//var host = "ws://localhost:32402/wiseguy.php";
-	//ravaged universe
-	var host = "ws://mafia.ravageduniverse.com:32402";
+	var host = "saddlecat.dopetank.net:8080";
 	var username = "";
 	var socket;
 	var loggedin = false;
@@ -11,104 +8,107 @@
 	var loading = false;
 	
 	//function MCI() { //The Mafia Client Instance
-		if(!WebSocket){ 
-			fail("You need a browser with WebSockets<br/>Firefox 10 or Chrome 16");	
+		if(!io){ 
+			fail("io failed to load on your client. Please report this incidence and include your browser verison.");	
 			//what
 		}
 		//return this;
 		
 		try{
-			socket = new WebSocket(host);
-			debug('socket status: '+socket.readyState);
-			socket.onopen = function(msg){ 
+			socket = io.connect(host);
+			socket.on('connect', function(msg){ 
 				debug("socket open: "+this.readyState);
 				show_login_pane("username");
 				ele("in_username").focus();
-			};
-			socket.onmessage = function(msg){
-				var pktarray = msg.data.split('~');
-				var action = pktarray[0];
-				var data = pktarray[1];
-				switch(action){
-					case "exists":
-						debug("user exists");
-						show_login_pane("enter_password");
-						ele("in_password").focus();
-						break;
-					case "newuser":
-						debug("new user");
-						ele("prompted_new_user").innerHTML = data;
-						show_login_pane("new_password");
-						ele("new_password1").focus();
-						break;
-					case "colorcls":
-						debug("color class: "+data);
-						var cssE = ele("generated_colors");
-						if(cssE.styleSheet){
-							cssE.styleSheet.cssText += "\n "+data;
-						}
-						else{
-							cssE.appendChild(document.createTextNode("\n "+data));
-						}
-						break;
-					case "join":
-						debug("join: "+data);
-						var userd = data.split(" ");
-						addUpdateUser(userd);
-						if(!loading) printmsg(false, "Joined: "+userd[1]);
-						break;
-					case "part":
-						debug("part: "+data);
-						var userli = ele("userli_"+data);
-						if(userli && !loading){
-							printmsg(false, "Parts: "+ele("usersp_"+data).innerHTML);
-							userli.parent.removeChild(userli);
-						}
-						break;
-					case "stats":
-						debug("stats: "+data);
-						var statsd = data.split(":");
-						ele("civwins").innerHTML = statsd[0];
-						ele("mafiawins").innerHTML = statsd[1];
-						ele("round_number").innerHTML = "Round #"+(parseInt(statsd[0],10)+parseInt(statsd[1],10)+1);
-						break;
-					case "server":
-						debug("server: "+data);
-						printmsg(false,data);
-						break;
-					case "startload":
-						debug("startload");
-						loading = true;
-						loggedin = true;
-						break;
-					case "loaded":
-						debug("loaded");
-						loading = false;
-						username = ele("in_username").value;
-						ele("user").innerHTML = username;
-						ele("playerrole").innerHTML = "not playing";
-						hide_login_pane();
-						break;
-					case "action":
-						debug("action: "+data);
-						break;
-					case "chat":
-						debug("chat: "+data);
-						var chatd = data.split("^:");
-						printmsg(chatd[0],chatd[1]);
-						break;
-					case "reauth":
-						debug("reauth");
-						clearlogin();
-						username = "";
-						show_login_pane("username");
-						break;
-					default:
-						debug("received scary message: "+msg.data);
-						break;
+			});
+
+			socket.on("exists", function(){
+				debug("user exists");
+				show_login_pane("enter_password");
+				ele("in_password").focus();
+			});
+			socket.on("newuser", function(data){
+				debug("new user");
+				ele("prompted_new_user").innerHTML = data;
+				show_login_pane("new_password");
+				ele("new_password1").focus();
+			});
+			socket.on("colorcls", function(data){
+				if(!loggedin) return;
+				debug("color class");
+				debug(data);
+				new_css = "."+data.classname+" { background-color: #"+data.color+"; color: #"+data.contrast+"; }";
+				var cssE = ele("generated_colors");
+				if(cssE.styleSheet){
+					cssE.styleSheet.cssText += "\n "+new_css;
 				}
-			};
-			socket.onclose = function(msg){
+				else{
+					cssE.appendChild(document.createTextNode("\n "+new_css));
+				}
+			});
+			socket.on("join", function(data){
+				if(!loggedin) return;
+				debug("join");
+				debug(data);
+				addUpdateUser(data);
+				if(!loading) printmsg(false, "Joined: "+data.nick);
+			});
+			socket.on("part", function(data){
+				if(!loggedin) return;
+				debug("part");
+				debug(data);
+				var userli = ele("userli_"+data.uid);
+				if(userli){
+					printmsg(false, "Parts: "+ele("usersp_"+data.uid).innerHTML);
+					userli.parentNode.removeChild(userli);
+				}
+			});
+			socket.on("stats", function(data){
+				if(!loggedin) return;
+				debug("stats: "+data);
+				var statsd = data.split(":");
+				ele("civwins").innerHTML = statsd[0];
+				ele("mafiawins").innerHTML = statsd[1];
+				ele("round_number").innerHTML = "Round #"+(parseInt(statsd[0],10)+parseInt(statsd[1],10)+1);
+			});
+			socket.on("server", function(data){
+				debug("server: "+data);
+				printmsg(false,data);
+			});
+			socket.on("startload", function(){	
+				debug("startload");
+				loading = true;
+				loggedin = true;
+			});
+			socket.on("loaded", function(data){
+				debug("loaded");
+				loading = false;
+				username = ele("in_username").value;
+				ele("user").innerHTML = username;
+				ele("playerrole").innerHTML = "not playing";
+				hide_login_pane();
+				ele('in_chat').focus()
+			});
+			socket.on("action", function(data){
+				if(!loggedin) return;
+				debug("action");
+				debug(data);
+				printmsg(data.uid, data.msg);
+			});
+			socket.on("chat", function(data){
+				if(!loggedin) return;
+				debug("chat");
+				debug(data);
+				printmsg(data.uid, data.msg);
+			});
+			socket.on("reauth", function(data){
+				debug("reauth");
+				clearlogin();
+				username = "";
+				show_login_pane("username");
+			});
+
+			socket.on("disconnect", function(msg){
 				debug("socket closed: "+this.readyState);
 				if(!quitting && loggedin){
 					fail("Disconnected from the server. "+this.readyState); 
@@ -116,7 +116,7 @@
 				else if(!loggedin){
 					show_login_pane("no_server");
 				}
-			};
+			});
 			window.onkeydown = function(event){
 				var keycode = ('which' in event) ? event.which : event.keyCode;
 				if(keycode === 13){
@@ -124,6 +124,12 @@
 					switch(document.activeElement.getAttribute("id")){
 						case "in_username":
 							show_login_pane("loading");
+							uname_e = ele("in_username")
+							if (uname_e.value.length < 3
+								|| uname_e.value.length > 15){
+								uname_e.hilite();
+								return;
+							}
 							sendpacket("username", ele("in_username").value);
 							break;
 						case "new_password1":
@@ -134,7 +140,7 @@
 							if(pass1.value !== pass2.value){
 								pass1.hilite();
 								pass2.hilite();
-								break;
+								return;
 							}
 							sendpacket("newpass", ele("new_password2").value);
 							break;
@@ -144,6 +150,9 @@
 							break;
 						case "in_chat":
 							var msg = ele("in_chat").value;
+							if(msg.length > 500){
+								return;
+							}
 							ele("in_chat").value = "";
 							sendpacket("chat", msg);
 							break;
@@ -167,8 +176,9 @@
 		}
 		var packet = action+"~"+sescape(data);
 		try{
-			socket.send(packet);
-			debug("sent: "+packet);
+			socket.emit(action, sescape(data));
+			//socket.send(packet);
+			debug("sent: "+action+ " "+sescape(data));
 		}
 		catch(ex){
 			debug("failed to send: "+packet);
@@ -203,23 +213,24 @@
 		}
 		dd.innerHTML = msg;
 		ele("chat_dl").add([dt,dd]);
+		ele("chat_div").scrollTop = ele("chat_div").scrollHeight;
 	}
 	
 	function addUpdateUser(userd){
 		var userli = document.createElement("li");
 		var namesp = document.createElement("span");
-		var existing = ele("userli_"+userd[0]);
+		var existing = ele("userli_"+userd.uid);
 		if(existing) {
 			userli = existing;
-			existing.parent.removeChild(existing);
+			existing.parentNode.removeChild(existing);
 		}
-		userli.setAttribute('id', "userli_"+userd[0]);
+		userli.setAttribute('id', "userli_"+userd.uid); 
 		userli.className = "user";
-		namesp.className = "roundedbg "+userd[2];
-		namesp.innerHTML = userd[1];
-		namesp.setAttribute('id', "usersp_"+userd[0]);
+		namesp.className = "roundedbg "+userd.classname;
+		namesp.innerHTML = userd.nick;
+		namesp.setAttribute('id', "usersp_"+userd.uid);
 		userli.appendChild(namesp);
-		switch(parseInt(userd[3],10)){
+		switch(parseInt(userd.status,10)){
 			case 1:
 				break;
 			case 2:
