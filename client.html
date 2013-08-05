@@ -7,7 +7,8 @@
 		<link href="http://fonts.googleapis.com/css?family=Wire+One" rel="stylesheet" type="text/css">
 		<script type="text/javascript" src="/socket.io/socket.io.js"></script>
 		<script type="text/javascript" src="js/tools.js"></script>
-		<script type="text/javascript" src="js/mafia.js"></script>
+		<script type="text/javascript" src="js/client.js"></script>
+		<script type="text/javascript" src="js/mafia_client.js"></script>
 		<style type="text/css" id="generated_colors"></style>
 	</head>
 	<body>
@@ -58,7 +59,12 @@
 				</span>
 			</div>
 			<div class="main">
-				<div class="userlist">
+				<div class="chat" id="chat_div">
+					<dl id="chat_dl">
+						
+					</dl>
+				</div>
+				<div class="userlist" id='userlist_div'>
 					<ul id="players_alive">
 						<li class="title">Living players</li>
 					</ul>
@@ -68,11 +74,6 @@
 					<ul id="players_connected">
 						<li class="title">Connected Players</li>
 					</ul>
-				</div>
-				<div class="chat" id="chat_div" style="overflow:scroll; height:500px; margin-bottom:25px;">
-					<dl id="chat_dl">
-						
-					</dl>
 				</div>
 			</div>
 			<div class="toolbar blackgradient">

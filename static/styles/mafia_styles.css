@@ -41,12 +41,12 @@ div.container { }
 /* status bar */
 
 div.statusbar { width:100%; height:40px; margin:0; padding:0; padding-left:20px; padding-right:20px; color:#eee; text-shadow:1px -1px 1px rgba(0, 0, 0, 0.35);}
-div.statusbar span { float:left; height:100%;}
+div.statusbar span { float:left; }
 div.statusbar span.title { font-family:"Wire One"; text-shadow:0 -1px 0 rgba(0, 0, 0, 0.25); font-size:35px; text-transform:uppercase; display:block; position:relative; top:10px; }
 div.statusbar span.scoreboard { background:#222; margin-left:20px; display:block; }
 div.statusbar span.scoreboard span { display:block; float:left; padding-top:10px;padding-left:10px; padding-right:10px;}
 div.statusbar span.scoreboard span span {float: right; height:auto; padding:0px;padding-left:2px; padding-right:3px;} 
-div.statusbar span.status { float:left; margin-left:10px; display:block; width:500px; padding-top:10px; height:auto;}
+div.statusbar span.status { float:left; margin-left:10px; display:block; padding-top:10px; height:auto;}
 div.statusbar span.status span { float:left; clear:none; }
 div.statusbar span.userinfo { float:right; padding-top:10px; margin-right:50px;}
 div.statusbar span.userinfo span#user { margin-left:5px; }
@@ -56,14 +56,14 @@ div.statusbar span.userinfo span#user { margin-left:5px; }
 
 /* user list */
 
-div.main div.userlist { width:195px; margin-left:20px; float:left; height:auto; background:url('../img/wood_panel.png') no-repeat #1e0b07; min-height:300px; border-radius:6px;padding-left:20px; padding-top:20px; margin-top:30px; display:block; margin-top:10px;}
+div.main div.userlist { width:196px; float:right; height:auto; background:url('../img/wood_panel.png') no-repeat #1e0b07; min-height:300px; padding-left:20px; padding-top:20px; display:block; }
 div.main div.userlist ul { list-style-type:none;margin:0; padding:0; display:none; }
 div.main div.userlist ul li { color:#eee; margin-top:8px; }
 div.main div.userlist ul li.title { color:#999; text-transform:uppercase; background: margin-top:8px; border-bottom:1px solid #ddd; margin-bottom:12px;}
 
 /* chat */
 
-div.chat { width:auto; height:100%;}
+div.chat { overflow-y:scroll; overflow-x:hidden; margin-bottom:25px; float:left;}
 div.chat dl#chat_dl { display:block; float;left; min-width:300px; max-width:1000px; float:left;}
 div.chat dl#chat_dl dt { float: left; clear:left; width:120px; text-align:right; height:18px;}
 div.chat dl#chat_dl dt span { }
@@ -74,7 +74,7 @@ div.chat dl#chat_dl dd.server { color:#333; }
 /* toolbar */
 
 div.toolbar { width:100%; position:fixed; bottom:0px; left:0px; height:40px; z-index:3; color:#eee; padding-left:20px;}
-div.toolbar #game_day {text-shadow:0 -1px 0 rgba(0, 0, 0, 0.25); float:left; font-family:"Wire One"; font-size:30px; text-transform:uppercase; padding-top:10px;margin-right:20px;}
+div.toolbar #game_day {width:81px;text-shadow:0 -1px 0 rgba(0, 0, 0, 0.25); float:left; font-family:"Wire One"; font-size:30px; text-transform:uppercase; padding-top:10px;margin-right:20px;}
 div.toolbar #in_chat { width: 65%; text-align:left; height:25px; margin-top:5px; padding-left:10px; font-size:13px;}
 div.toolbar #btn_vote{ height:25px; background-color:#5bb75b;background-image:-moz-linear-gradient(top, #62c462, #51a351);background-image:-ms-linear-gradient(top, #62c462, #51a351);background-image:-webkit-gradient(linear, 0 0, 0 100%, from(#62c462), to(#51a351));background-image:-webkit-linear-gradient(top, #62c462, #51a351);background-image:-o-linear-gradient(top, #62c462, #51a351);background-image:linear-gradient(top, #62c462, #51a351);background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#62c462', endColorstr='#51a351', GradientType=0);border-color:#51a351 #51a351 #387038;border-color:rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);filter:progid:dximagetransform.microsoft.gradient(enabled=false);}.btn-success:hover,.btn-success:active,.btn-success.active,.btn-success.disabled,.btn-success[disabled]{background-color:#51a351;}
 div.toolbar #round_number { float:right; margin-right:50px; margin-top:12px; } 
