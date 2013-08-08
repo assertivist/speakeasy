@@ -146,7 +146,7 @@ function load_new_user(nick, sock){
 			contrast: s.se_data.contrast_color
 		});
 		sock.emit('join', { 
-			uid: key,
+			uid: s.id,
 			nick: s.se_data.nick,
 			classname: s.se_data.color_class,
 			status: s.se_data.status
