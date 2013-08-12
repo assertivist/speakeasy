@@ -102,6 +102,8 @@ var getElementsByClassName = function (className, tag, elm){
 	return getElementsByClassName(className, tag, elm);
 };
 
+
+
 /* code below (c) dopetank software http://dopetank.net */
 function debug(msg){
 	if(!debug_mode){
@@ -131,4 +133,12 @@ function sescape(message){
 		message.replace(illegalchars[i],"");
 	}
 	return message;
+}
+
+if(typeof(String.prototype.trim) === "undefined")
+{
+    String.prototype.trim = function() 
+    {
+        return String(this).replace(/^\s+|\s+$/g, '');
+    };
 }

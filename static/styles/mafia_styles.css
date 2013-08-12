@@ -68,7 +68,7 @@ div.chat dl#chat_dl { display:block; float;left; min-width:300px; max-width:1000
 div.chat dl#chat_dl dt { float: left; clear:left; width:120px; text-align:right; height:18px;}
 div.chat dl#chat_dl dt span { }
 div.chat dl#chat_dl dt.server span{ color:#333;padding-top:4px; }
-div.chat dl#chat_dl dd { margin-left:130px; display:block; height:18px;}
+div.chat dl#chat_dl dd { margin-left:130px; display:block; min-height:18px;}
 div.chat dl#chat_dl dd.server { color:#333; }
 
 /* toolbar */

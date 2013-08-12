@@ -5,7 +5,8 @@ var express = require('express')
 	, crypto = require('crypto')
 	, redis = require('redis')
 	, rand_str = require('randomstring')
-	, rclient = redis.createClient();
+	, rclient = redis.createClient()
+	, sanitize = require('validator').sanitize
  
 
 var app = express();
@@ -88,15 +89,17 @@ io.sockets.on('connection', function (sock){
 		if(in_game){
 			//pass to game logic to see who gets the message
 		}
-		//everyone
-		io.sockets.emit('chat', {uid: sock.id, msg: data});
+		
+		cmsg = sanitize(data).escape();
+		io.sockets.emit('chat', {uid: sock.id, msg: cmsg});
 	});
 
 	sock.on('action', function(data){
 		if(in_game){
-			//see above
+			
 		}
-		io.sockets.emit('action', {uid: sock.id, msg: data});
+		amsg = sanitize(data).escape();
+		io.sockets.emit('action', {uid: sock.id, msg: amsg});
 	});
 
 	sock.on('disconnect', function(){

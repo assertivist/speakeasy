@@ -149,8 +149,8 @@ try{
 					sendpacket("pass", ele("in_password").value);
 					break;
 				case "in_chat":
-					var msg = ele("in_chat").value;
-					if(msg.length > 500){
+					var msg = ele("in_chat").value.trim();
+					if(msg.length > 500 || msg.length < 1){
 						return;
 					}
 					ele("in_chat").value = "";
