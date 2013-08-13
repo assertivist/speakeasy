@@ -11,5 +11,6 @@ Speakeasy is written completely in Javascript using node.js on the server.
 
 Speakeasy requires `express`, `crypto`, `redis`, and `randomstring`.
 `npm install express crypto redis randomstring`
+
 `node speakeasy.js`
 
