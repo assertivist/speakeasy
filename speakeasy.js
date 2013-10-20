@@ -159,12 +159,8 @@ function load_new_user(nick, sock){
 
 function random_color(){
 	c = Math.floor(Math.random()*16777215).toString(16);
-	if(c.length < 6){
-		return "0"+c;
-	}
-	else{
-		return c;
-	}
+	color =  c.length < 6 ? "0"+c : c;
+	return color;
 }
 
 

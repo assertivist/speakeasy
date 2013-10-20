@@ -8,7 +8,7 @@ var quitting = false;
 var loading = false;
 
 if(!io){ 
-	fail("io failed to load on your client. Please report this incidence and include your browser verison.");
+	fail("io failed to load on your client. Please report this incidence and include your browser version.");
 }
 	
 try{

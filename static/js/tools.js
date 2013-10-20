@@ -112,16 +112,116 @@ function debug(msg){
 	console.log(msg);
 }
 
+function lerp(a, b, u){
+	return (1 - u) * a + u * b;
+}
+
+function lerp3(startarr, endarr, u){
+	var r1 = lerp(startarr[0], endarr[0], u);
+	var r2 = lerp(startarr[1], endarr[1], u);
+	var r3 = lerp(startarr[2], endarr[2], u);
+	return [r1, r2, r3];
+}
+
+function rgb_to_hsv(colorarr){
+	var r = colorarr[0];
+	var g = colorarr[1];
+	var b = colorarr[2];
+	var maxc = Math.max(r,g,b);
+	var minc = Math.min(r,g,b);
+	var v = maxc;
+	if(minc == maxc) return [0,0,v];
+	var diff = maxc - minc;
+	var s = diff / maxc;
+	var rc = (maxc - r) / diff;
+	var gc = (maxc - g) / diff;
+	var bc = (maxc - b) /diff;
+	var h = 0;
+	if(r == maxc) h = bc - gc;
+	else if(g == maxc) h = 2.0 + rc - bc;
+	else h = 4.0 + gc - rc;
+	h = (h / 6.0) % 1.0;
+	return [h, s, v];
+}
+
+function hsv_to_rgb(colorarr){
+	var h = colorarr[0];
+	var s = colorarr[1];
+	var v = colorarr[2];
+	if(s == 0.0) return [v,v,v];
+	var i = parseInt(Math.floor(h * 6.0), 10);
+	var f = (h * 6.0) - i;
+	var p = v * (1.0 - s);
+	var q = v * (1.0 - s * f);
+	var t = v * (1.0 - s * (1.0 - f));
+	if(i % 6 == 0) return [v, t, p];
+	switch(i){
+		case 1:
+			return [q, v, p];
+		case 2:
+			return [p, v, t];
+		case 3:
+			return [p, q, v];
+		case 4:
+			return [t, p, v];
+		case 5:
+			return [v, p, q];
+	}
+}
+
+// depeche mode voice:
+//      YOUR OWN....
+//      PERSONAL....
+//		JQUESUS.....
+
 function ele(id) { 
 	var o = document.getElementById(id);
 	if(!o) return o;
 	o.show = function(){ o.style.display = "block";};
 	o.hide = function(){ o.style.display = "none"; };
-	o.find = function(selector){ if(o.getElementsByClassName) return Array.prototype.slice.call(o.getElementsByClassName(selector), 0); else return Array.prototype.slice.call(document.getElementsByClassName(selector), 0);};
-	o.removeClass = function(cls){ o.className = (o.getAttribute("class").split(/\s+/).map(function(x){ if(x !== cls){ return x; } else{ return ""; } })).join(" "); };
+	o.find = function(selector){ 
+		if(o.getElementsByClassName) 
+			return Array.prototype.slice.call(o.getElementsByClassName(selector), 0); 
+		else 
+			return Array.prototype.slice.call(document.getElementsByClassName(selector), 0);
+	};
+	o.removeClass = function(cls){ 
+		o.className = (o.getAttribute("class").split(/\s+/).map(function(x){ 
+			if(x !== cls){ return x; } 
+			else{ return ""; } 
+		})).join(" "); 
+	};
 	o.addClass = function(cls){ o.className = o.className+" "+cls; };
 	o.hilite = function(){ o.style.backgroundColor = "#FF9C9C"; };
-	o.add = function(elearray){ elearray.forEach(function(ele){o.appendChild(ele);}); return o;};
+	o.add = function(elearray){ 
+		elearray.forEach(function(ele){
+			o.appendChild(ele);
+		}); 
+		return o;
+	};
+	o.fadeColorTo = function(property, from_color, to_color, duration){
+		o.fadeColorTo(property, from_color, to_color, duration, function(){});
+	}
+	o.fadeColorTo = function(property, from_color, to_color, duration, callback){
+		var intv = 10;
+		var steps = duration/intv;
+		var step_u = 1.0/steps;
+		var u = 0.0;
+		from_color = rgb_to_hsv(from_color);
+		to_color = rgb_to_hsv(to_color);
+		var animInt = setInterval(function(){
+			if(u >= 1.0) {
+				clearInterval(animInt);
+				return callback();
+			}  
+			var c = hsv_to_rgb(lerp3(from_color, to_color, u));
+			var colorname = 'rgb('+Math.floor(c[0])
+							  +','+Math.floor(c[1])
+							  +','+Math.floor(c[2])+')';
+			o.style.setProperty(property, colorname);
+			u += step_u;
+		}, intv);
+	}
 	return o;
 }
 
