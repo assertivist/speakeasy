@@ -201,27 +201,35 @@ function ele(id) {
 	};
 	o.fadeColorTo = function(property, from_color, to_color, duration){
 		o.fadeColorTo(property, from_color, to_color, duration, function(){});
-	}
+	};
+	
 	o.fadeColorTo = function(property, from_color, to_color, duration, callback){
+		from_color = rgb_to_hsv(from_color);
+		to_color = rgb_to_hsv(to_color);
+		o.animProperty(property, 
+			function(v){
+				var c = hsv_to_rgb(v);
+				var colorname = 'rgb('+Math.floor(c[0])
+							  +','+Math.floor(c[1])
+							  +','+Math.floor(c[2])+')';
+				return colorname;
+			}, from_color, to_color, duration, callback)
+	}
+	o.animProperty = function(property, pformat, from_value, to_value, duration, callback){
 		var intv = 10;
 		var steps = duration/intv;
 		var step_u = 1.0/steps;
-		var u = 0.0;
-		from_color = rgb_to_hsv(from_color);
-		to_color = rgb_to_hsv(to_color);
+		var u = 0.0
 		var animInt = setInterval(function(){
 			if(u >= 1.0) {
 				clearInterval(animInt);
 				return callback();
-			}  
-			var c = hsv_to_rgb(lerp3(from_color, to_color, u));
-			var colorname = 'rgb('+Math.floor(c[0])
-							  +','+Math.floor(c[1])
-							  +','+Math.floor(c[2])+')';
-			o.style.setProperty(property, colorname);
-			u += step_u;
+			}
+			var v = lerp3(from_value, to_value, u);
+			o.style.setProperty(property, pformat(v));
+			u+= step_u;
 		}, intv);
-	}
+	};
 	return o;
 }
 

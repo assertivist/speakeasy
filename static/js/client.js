@@ -47,7 +47,7 @@ try{
 		if(!loggedin) return;
 		debug("join");
 		debug(data);
-		addUpdateUser(data);
+		add_update_user(data);
 		if(!loading) printmsg(false, "Joined: "+data.nick);
 	});
 	socket.on("part", function(data){
@@ -218,6 +218,7 @@ function printmsg(userid,msg){
 	chat_d = ele("chat_div")
 	chat_d.scrollTop = chat_d.scrollHeight;
 }
+
 resize_timeout = 0
 function resize_panels(){
 	clearTimeout(resize_timeout);
@@ -231,7 +232,27 @@ function resize_panels(){
 	}, 250);
 }
 
-function addUpdateUser(userd){
+function client_vote(desc, options, callback){
+	ele('desc_txt').innerHTML = desc.text;
+	ele('desc_img').style.backgroundImage = desc.img;
+
+	for (i in options) {
+		var ct = document.createElement("span");
+		ct.className = "vote_option";
+		ct.innerHTML = options[i].label;
+		var cb = document.createElement("input");
+		cb.type = "checkbox";
+		cb.name = "vote";
+		cb.value = options[i].value;
+		cb.className = "v_cbox";
+		ct.appendChild(cb);
+		ele('vote_form').appendChild(ct)
+	};
+	ele('v_form_submit').innerHTML(desc.button);
+
+}
+
+function add_update_user(userd){
 	var userli = document.createElement("li");
 	var namesp = document.createElement("span");
 	var existing = ele("userli_"+userd.uid);
@@ -265,6 +286,7 @@ function addUpdateUser(userd){
 function updateuserinlist(user,colorcls,votes){
 
 }
+
 var fail = function(error){
 	ele("fatalmessage").innerHTML = error;
 	ele("modalbox").addClass("red");
