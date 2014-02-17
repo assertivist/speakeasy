@@ -1,103 +1,119 @@
 <!DOCTYPE html>
 <html>
-	<head>
-	<meta charset="UTF-8">
-		<title>SPEAKEASY</title>
-		<link rel="stylesheet" href="styles/base_styles.css" />
-		<link rel="stylesheet" href="styles/mafia_styles.css" />
-		<link href="http://fonts.googleapis.com/css?family=Wire+One" rel="stylesheet" type="text/css">
-		<script type="text/javascript" src="/socket.io/socket.io.js"></script>
-		<script type="text/javascript" src="js/tools.js"></script>
-		<script type="text/javascript" src="js/client.js"></script>
-		<script type="text/javascript" src="js/mafia_client.js"></script>
-		<style type="text/css" id="generated_colors"></style>
-	</head>
-	<body>
-		<div class="login_overlay" id="modal">
-			<div class="login_box" id="modalbox">
-				<div class="login_title"><span class="second">SPEAKEASY</span></div>
-				<div class="login_pane" id="connecting">
-					Connecting...<br/><span class="spinner"></span>
-				</div>
-				<div class="login_pane" id="username">
-					Enter name:<br/><input id="in_username" type="text" />
-				</div>
-				<div class="login_pane" id="new_password">
-					Enter new password<br/> for <b><span id="prompted_new_user">nobody</span></b><br/>and confirm:<br/>
-					<input id="new_password1" type="password" />
-					<input id="new_password2" type="password" />
-				</div>
-				<div class="login_pane" id="enter_password">
-					Enter password for <b><span id="prompted_user"></span></b>:<br/>
-					<input id="in_password" type="password" />
-				</div>
-				<div class="login_pane" id="loading">
-					Please wait. <br/> Loading... <br/><span class="spinner"></span>
-				</div>
-				<div class="login_pane" id="fatal">
-					<span class="whoops">&#9760;</span><br/>Fatal error<br/><span id="fatalmessage"></span>
-				</div>
-				<div class="login_pane" id="no_server">
-					The server for this game room is not started.<br/>Please <a href="javascript:location.reload(true);" style="color:inherit;">refresh</a> to check again, or <a href="javascript:history.back();" style="color:inherit;">go back</a>.
-				</div>
-			</div>
-		</div>
-		<div class="container">
-			<div class="statusbar blackgradient">
-				<span class="title">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ffasdsfasdfadsfasdadf</title>
+    <link rel="stylesheet" href="styles/base_styles.css" />
+    <link rel="stylesheet" href="styles/mafia_styles.css" />
+    <link href="http://fonts.googleapis.com/css?family=Wire+One" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="js/tools.js"></script>
+    <script type="text/javascript" src="js/client.js"></script>
+    <script type="text/javascript" src="js/mafia_client.js"></script>
+    <style type="text/css" id="generated_colors"></style>
+</head>
+
+<body>
+    <div class="login_overlay" id="modal">
+        <div class="login_box" id="modalbox">
+            <div class="login_title"><span class="second">SPEAKEASY</span>
+            </div>
+            <div class="login_pane" id="connecting">
+                Connecting...
+                <br/><span class="spinner"></span>
+            </div>
+            <div class="login_pane" id="username">
+                Enter name:
+                <br/>
+                <input id="in_username" type="text" />
+            </div>
+            <div class="login_pane" id="new_password">
+                Enter new password
+                <br/>for <b><span id="prompted_new_user">nobody</span></b>
+                <br/>and confirm:
+                <br/>
+                <input id="new_password1" type="password" />
+                <input id="new_password2" type="password" />
+            </div>
+            <div class="login_pane" id="enter_password">
+                Enter password for <b><span id="prompted_user"></span></b>:
+                <br/>
+                <input id="in_password" type="password" />
+            </div>
+            <div class="login_pane" id="loading">
+                Please wait.
+                <br/>Loading...
+                <br/><span class="spinner"></span>
+            </div>
+            <div class="login_pane" id="fatal">
+                <span class="whoops">&#9760;</span>
+                <br/>Fatal error
+                <br/><span id="fatalmessage"></span>
+            </div>
+            <div class="login_pane" id="no_server">
+                The server for this game room is not started.
+                <br/>Please <a href="javascript:location.reload(true);" style="color:inherit;">refresh</a> to check again, or <a href="javascript:history.back();" style="color:inherit;">go back</a>.
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="statusbar blackgradient">
+            <span class="title">
 					SPEAKEASY
 				</span>
-				<span class="scoreboard">
+            <span class="scoreboard">
 					<span>Global Stats:</span>
-					<span>Civilians&nbsp;<span class="roundedbg red" id="civwins">0</span></span>
-					<span>Mafia&nbsp;<span class="roundedbg green" id="mafiawins">0</span></span>
-				</span>
-				<span class="status">
+            <span>Civilians&nbsp;<span class="roundedbg red" id="civwins">0</span></span>
+            <span>Mafia&nbsp;<span class="roundedbg green" id="mafiawins">0</span></span>
+            </span>
+            <span class="status">
 					<span>You are </span><span id="playerrole" class="roundedbg">disconnected</span>
-				</span>
-				<span class="userinfo">
+            </span>
+            <span class="userinfo">
 					<span>You are logged in as </span>&nbsp;<span id="user">nobody</span>
-				</span>
-			</div>
-			<div class="main">
-				<div class="chat" id="chat_div">
-					<dl id="chat_dl">
-						
-					</dl>
-					<div class="vote_panel" id="vote_panel">
-						<h3 class="v_heading"></h3>
-						<div class="v_desc">
-							<div class="desc_img"></div>
-							<div class="desc_txt"></div>
-						</div>
-						<div id="vote_form" class="v_form">
-							<button id="v_form_submit" onclick="client_vote_submit()"></button>
-						</div>
-					</div>
-				</div>
-				<div class="userlist" id='userlist_div'>
-					<ul id="players_alive">
-						<li class="title">Living players</li>
-					</ul>
-					<ul id="players_dead">
-						<li class="title">Dead players</li>
-					</ul>
-					<ul id="players_connected">
-						<li class="title">Connected Players</li>
-					</ul>
-				</div>
-			</div>
-			<div class="toolbar blackgradient">
-				<div id="game_day">Pregame</div>
-				<div id="controls">
-					<input id="in_chat" type="text" placeholder="Chat"/>
-					<div id="round_number">
-				
-					</div>
-				</div>
-				
-			</div>
-		</div>
+            </span>
+        </div>
+        <div class="main">
+            <div class="chat" id="chat_div">
+                <dl id="chat_dl">
 
-	</body>
+                </dl>
+                <div class="vote_panel" id="vote_panel">
+                    <h3 class="v_heading"></h3>
+                    <div class="v_desc">
+                        <div class="desc_img"></div>
+                        <div class="desc_txt"></div>
+                    </div>
+                    <div id="vote_form" class="v_form">
+                        <button id="v_form_submit" onclick="client_vote_submit()"></button>
+                    </div>
+                </div>
+            </div>
+            <div class="userlist" id='userlist_div'>
+                <ul id="players_alive">
+                    <li class="title">Living players</li>
+                </ul>
+                <ul id="players_dead">
+                    <li class="title">Dead players</li>
+                </ul>
+                <ul id="players_connected">
+                    <li class="title">Connected Players</li>
+                </ul>
+            </div>
+        </div>
+        <div class="toolbar blackgradient">
+            <div id="game_day">Pregame</div>
+            <div id="controls">
+                <input id="in_chat" type="text" placeholder="Chat" />
+                <div id="round_number">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
 </html>

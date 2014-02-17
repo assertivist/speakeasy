@@ -1,9 +1,19 @@
 
-function MafiaGame(){
-	this.players = [];
-	this.round = 0;
+
+(function() {
+	function MafiaGame(){
+		this.players = [];
+		this.round = 0;
+	}
 	
-}
+	function Player(nick, skey, role, vote){
+		this.nick = nick;
+		this.skey = skey;
+		this.role = role;
+		this.alive = true;
+	}
+})();
+
 
 m = new MafiaGame();
 

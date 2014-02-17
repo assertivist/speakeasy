@@ -2,11 +2,12 @@ try{
 	socket.on('mafia_start', function(){
 		printmsg(false, 'got that mafia event');
 	});
+
+    socket.on
 }
 finally{
 	
 }
-
 
 function to_night(){
 	ele('chat_div').removeClass('day');
