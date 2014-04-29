@@ -3,7 +3,50 @@ try{
 		printmsg(false, 'got that mafia event');
 	});
 
-    socket.on
+	socket.on('who_kill', function(){
+		// Get the victim from this player (the mafia)
+	});
+
+	socket.on('kill_refuse', function(){
+    	// The mafia's kill was invalid.
+    });
+
+    socket.on('kill_accept', function(){
+    	// Someone's gonna get it
+    });
+
+    socket.on('who_save', function(){
+    	// Get a patient from this player (the doctor)
+    });
+
+    socket.on('save_refuse', function(){
+    	// The doctor's save choice was invalid.
+    });
+
+    socket.on('save_accepted', function(){
+    	// The doctor will attempt to save someone this turn
+    });
+
+    socket.on('who_investigate', function(){
+    	// Get a suspect from this player (the detective)
+    });
+
+    socket.on('investigate_refused', function(){
+    	// The detective's choice was invalid.
+    });
+
+    socket.on('investigate_result', function(role){
+    	// The detective learns something interesting...
+    	printmsg(false, "That person is the "+role);
+    });
+    
+    socket.on('day_vote_refused', function(){
+    	// the player's lynch vote was invalid.
+    });
+
+    socket.on('day_vote_accepted', function(){
+    	// the player voted on a lynch successfully
+    });
 }
 finally{
 	

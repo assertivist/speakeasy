@@ -40,8 +40,11 @@ root.game = require('./mafia.coffee')
 
 root.in_game = false
 root.game_starting = false
+root.join_phase = false
 root.USER_CONNECTED = 1
 root.USER_AUTHED = 2
+root.players = []
+root.frames = 0
 
 io.sockets.on 'connection', (sock) ->
     
@@ -82,10 +85,11 @@ io.sockets.on 'connection', (sock) ->
         )
 
     sock.on 'chat', (data) ->
+        cmsg = sanitize(data).escape()
         if root.in_game
             console.log 'ingame'
+            root.game.chat(cmsg)
         else 
-            cmsg = sanitize(data).escape()
             io.sockets.emit('chat', {uid: sock.id, msg: cmsg})
 
     sock.on 'action', (data) ->
@@ -102,7 +106,16 @@ io.sockets.on 'connection', (sock) ->
     sock.on 'startgame', () ->
         nick = sock.se_data.nick;
         console.log('starting game: '+nick);
+        root.join_phase = true
         io.sockets.emit('joinphase');
+        root.players.push(nick)
+
+    sock.on 'joingame', () ->
+        nick = sock.se_data.nick;
+        if root.join_phase
+            console.log('joined game: ' + nick);
+            root.players.push(nick)
+
 
     for mfunc in root.game.funcs 
         do (mfunc) ->
@@ -157,3 +170,11 @@ load_new_user = (nick, sock) ->
                 classname: s.se_data.color_class,
                 status: s.se_data.status
             });
+
+root.update_loop = () ->
+    root.frames += 1
+
+    if root.in_game
+        root.game.update_loop
+
+setInterval(root.update_loop, 150)
