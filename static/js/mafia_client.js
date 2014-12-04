@@ -5,6 +5,7 @@ try{
 
 	socket.on('who_kill', function(){
 		// Get the victim from this player (the mafia)
+		
 	});
 
 	socket.on('kill_refuse', function(){

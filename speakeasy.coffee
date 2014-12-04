@@ -6,7 +6,7 @@ crypto = require('crypto')
 redis = require('redis')
 rand_str = require('randomstring')
 rclient = redis.createClient()
-sanitize = require('validator').sanitize
+validator = require('validator')
  
 
 app = express();
@@ -29,8 +29,8 @@ app.get '/', (req, res) ->
                 res.writeHead(200)
                 res.end(data)
 
-app.configure 'development', () ->
-    app.use(express.errorHandler())
+#app.configure 'development', () ->
+#    app.use(express.errorHandler())
 
 
 
@@ -80,12 +80,12 @@ io.sockets.on 'connection', (sock) ->
         rclient.hmset('users', hash, ()->
             sock.se_data.status = root.USER_AUTHED
             sock.emit('startload')
-            load_new_user(nick, sock)
+            root.load_new_user(nick, sock)
             sock.emit('loaded')
         )
 
     sock.on 'chat', (data) ->
-        cmsg = sanitize(data).escape()
+        cmsg = validator.escape(validator.toString(data))
         if root.in_game
             console.log 'ingame'
             root.game.chat(cmsg)
@@ -96,7 +96,7 @@ io.sockets.on 'connection', (sock) ->
         if root.in_game
             console.log 'ingame'
         else
-            amsg = sanitize(data).escape()
+            amsg = validator.escape(validator.toString(data))
             io.sockets.emit('action', {uid: sock.id, msg: amsg})
 
     sock.on 'disconnect', () ->
@@ -126,7 +126,7 @@ io.sockets.on 'connection', (sock) ->
     sock.emit('ready')
 
 
-load_new_user = (nick, sock) ->
+root.load_new_user = (nick, sock) ->
     color_class = "c"+ rand_str.generate(4);
     sock.se_data.color_class = color_class;
     random_color = () ->
@@ -143,19 +143,19 @@ load_new_user = (nick, sock) ->
         contrast_color = '000000'
     sock.se_data.contrast_color = contrast_color;
     #send new user to all clients
-    io.sockets.emit('colorcls', {
+    io.emit('colorcls', {
         classname: color_class, 
         color: color_data,
         contrast: contrast_color
     });
-    io.sockets.emit('join', { 
+    io.emit('join', { 
         uid: sock.id,
         nick: nick,
         classname: color_class,
         status: sock.se_data.status
     });
 
-    io.sockets.clients().forEach (s)->
+    root.all_clients().forEach (s)->
         if sock.id == s.id
             return
         else
@@ -176,5 +176,14 @@ root.update_loop = () ->
 
     if root.in_game
         root.game.update_loop
+
+root.all_clients = () ->
+    res = []
+    room = io.sockets.adapter.rooms['/'];
+    if (room) 
+        for id in room
+            res.push(io.sockets.adapter.nsp.connected[id]);
+    return res;
+    
 
 setInterval(root.update_loop, 150)
